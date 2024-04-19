@@ -10,18 +10,18 @@ userRouter.post('/verifyLogin',authController.verifyLogin, authController.sendOT
 userRouter.post('/login',authController.verifyOTP, authController.login);
 
 
-userRouter.post('/forgotPassword',authController.forgotPassword);
-userRouter.patch('/resetPassword/:token',authController.resetPassword );
+// userRouter.post('/forgotPassword',authController.forgotPassword);
+// userRouter.patch('/resetPassword/:token',authController.resetPassword );
  
 
 
-userRouter.route('/')
-    .get(userController.getAllUsers)
-    .post(userController.addNewUser)
-userRouter.route('/:id?')
-    .get(userController.getUser)
-    .patch(userController.updateUser)
-    .delete(userController.deleteUser)
+// userRouter.route('/')
+//     .get(userController.getAllUsers)
+//     .post(userController.addNewUser)
+// userRouter.route('/:id?')
+//     .get(userController.getUser)
+//     .patch(userController.updateUser)
+//     .delete(userController.deleteUser)
 
 module.exports=userRouter;
 

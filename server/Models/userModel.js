@@ -6,14 +6,14 @@ const bcrypt=require('bcryptjs');
 
 //fields- name, email, photo, password, passwordConfirm
 const userSchema= new mongoose.Schema({
-        name:{
+        username:{
         type: String,
         required: [true, "A user must have a name"],
         trim: true
     },
     regno:{
       type: Number,
-      unieque:[true,"A user must have a regno"],
+      unique:[true,"Reg. no must be unique"],
       minlength:8
     },
     email:{ 
