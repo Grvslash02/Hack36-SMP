@@ -37,5 +37,5 @@ connectDb()
   });
 // Define routes
 app.route('/').get(home);
-app.use('/api/v1/mentors',mentorRouter);
+// app.use('/api/v1/mentors',mentorRouter);
 app.use('/api/v1/users',userRouter);
