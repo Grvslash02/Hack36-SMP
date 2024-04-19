@@ -1,12 +1,12 @@
 import "./styles.css";
 import Login from "./components/loginPage";
 import Signup from "./components/signup"
-import Main from "./components/main"
+import Cards from "./components/cards"
 
 export default function App() {
   return (
     <div className="App">
-      <Main/>
+      <Cards/>
     </div>
   );
 }
