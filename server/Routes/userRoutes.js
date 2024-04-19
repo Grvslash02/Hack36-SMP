@@ -1,5 +1,5 @@
 const express=require('express');
-const userController=require('./../controllers/usercontroller');
+// const userController=require('./../controllers/usercontroller');
 const authController=require('./../controllers/authController');
 const userRouter= express.Router();
 
