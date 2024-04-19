@@ -36,6 +36,6 @@ connectDb()
     console.log("Invalid database connection...!");
   });
 // Define routes
-app.get("/", (req, res) => {
-  res.status(201).json("Home GET Request");
-});
+app.route('/').get(home);
+app.use('/api/v1/mentors',mentorRouter);
+app.use('/api/v1/users',userRouter);
