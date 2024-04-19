@@ -53,7 +53,7 @@ exports.signup= async (req,res,next) =>{
     }
 }
 exports.verifyLogin= async(req,res,next)=>{
-    const {email, password} =req.body;
+    const {email, password, role} =req.body;
 
     //1.Check if email exists and passowrd exist
     if(!email || !password){
@@ -62,10 +62,14 @@ exports.verifyLogin= async(req,res,next)=>{
 
 
     const user=await User.findOne({email}).select('+password');
+    
     const correct =await user.correctPassword(password,user.password);
     
     if(!user|| !correct){
         return res.status(401).json({ success: false, message: 'Invalid username or password' });
+    }
+    if(user.role !== role){
+        return res.status(401).json({success: false, message: 'Access Denied, Invalid Role'})
     }
 
     req.app.locals = {user,email, isVerified: true};
