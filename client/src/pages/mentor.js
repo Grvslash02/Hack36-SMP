@@ -1,7 +1,7 @@
 import React from "react";
 import { useRef } from "react";
 import { Breadcrumb, Layout, Menu, theme, Card } from "antd";
-import Layouts from "./components/Layouts";
+import Layouts from "./../components/Layouts";
 import menteeImage from "./../resources/mentee-01.png";
 
 export default function Features() {
