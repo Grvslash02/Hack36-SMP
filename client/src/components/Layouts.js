@@ -16,13 +16,17 @@ import {
   Modal,
   Input,
   Button,
+  Form,
+  List,
+  message
 } from "antd";
 import axios from 'axios'; // Import Axios to make HTTP requests
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Meta } = Card;
- // Initialize the useNavigate hook
+// Initialize the useNavigate hook
 
+axios.defaults.baseURL = 'http://localhost:5000';
 
 function getItem(label, key, icon, link, children) {
   return {
@@ -41,21 +45,56 @@ const Layouts = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
+  const [form] = Form.useForm();
+  const [addedUsers, setAddedUsers] = useState([]);
+
 
   const showModal = () => {
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
-    const handleCreateTeam = async () => {
-      setIsModalVisible(false);
-      const newTeamName = `Team ${teams.length + 1}`;
-      setTeams([...teams, newTeamName]);
-      await createTeam();
+  // Handle form submission
+const handleOk = async () => {
+  try {
+    await form.validateFields(); // Validate the form fields
+
+    const { groupName } = form.getFieldsValue(); // Get the team name from the form
+
+    // Extract user IDs from addedUsers
+    const userIds = addedUsers.map(user => user._id);
+
+    // Create the group payload
+    const groupPayload = {
+      name: groupName,
+      users: JSON.stringify(userIds), // Convert user IDs to JSON string
     };
-  
-    handleCreateTeam();
-  };
+
+    const response = await axios.post("/api/v1/chat/group", groupPayload, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("usertoken")}`, // Include JWT token in the headers
+      },
+    });
+
+    // Close the modal and show success message
+    form.resetFields();
+    setAddedUsers([]);
+    handleCancel();
+    message.success('Group chat created successfully');
+  } catch (error) {
+    console.error('Error creating group chat:', error);
+
+    if (error.response && error.response.data && error.response.data.message) {
+      // Display the exact error message returned by the backend
+      message.error(error.response.data.message);
+    } else {
+      // Fallback to a generic error message
+      message.error('Failed to create group chat');
+    }
+  }
+};
+
+
 
   const handleMenuClick = ({ key }) => {
     const selectedItem = menuItems.flat().find((item) => item.key === key);
@@ -63,40 +102,55 @@ const Layouts = ({ children }) => {
       navigate(selectedItem.link);
     }
   };
-  
-  
+
+
 
   const handleCancel = () => {
     setIsModalVisible(false);
+    setSearchResults([]);
+    setAddedUsers([]);
   };
 
-  // Function to handle creating a team
-  const createTeam = async () => {
-    try {
-      const response = await axios.post('/api/v1/teams/create', {
-        createdBy: 'MentorID', // Provide the ID of the mentor creating the team
-        members: [], // Initial list of members (can be empty)
-      });
-      console.log(response.data); // Log the response from the backend
-      // Update UI based on the response
-    } catch (error) {
-      console.error('Error creating team:', error);
-      // Handle error and update UI accordingly
-    }
-  };
+  
 
-  // Function to handle searching for users
+  // Handle search for users
   const searchUsers = async () => {
     try {
-      const response = await axios.get('/api/v1/teams/search', {
-        searchTeam: searchTerm,
+      setSearchResults([]);
+      const token = localStorage.getItem("usertoken");
+      console.log(token);
+
+      // Make a GET request to the backend API endpoint with the search query
+      const response = await axios.get(`/api/v1/chat/search?regNo=${searchTerm}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Include JWT token in the headers
+        },
       });
-      setSearchResults(response.data.users);
+
+      if (response.data.success) {
+        console.log("Search successful");
+        setSearchResults(response.data.data);
+      } else {
+        console.error("Error searching users:", response.data.message);
+        message.error(response.data.message);
+      }
     } catch (error) {
-      console.error('Error searching users:', error);
-      // Handle error and update UI accordingly
+      console.error("Error searching users:", error.message);
+      message.error(error.response.data.message);
     }
   };
+  // Handle adding a user to the team
+  const handleAddUser = (user) => {
+    if (!addedUsers.find((u) => u._id === user._id)) {
+      setAddedUsers([...addedUsers, user]);
+    }
+  };
+
+  // Handle removing a user from the team
+  const handleRemoveUser = (userId) => {
+    setAddedUsers(addedUsers.filter((user) => user._id !== userId));
+  };
+
 
   // Function to handle adding a user to the team
   const addMemberToTeam = async (teamId, memberId) => {
@@ -124,19 +178,19 @@ const Layouts = ({ children }) => {
       key: "sub2",
       label: (
         <div>
-        {/* <TeamOutlined style={{ marginRight: 8 }} /> */}
+          {/* <TeamOutlined style={{ marginRight: 8 }} /> */}
           <span >Groups</span>
-          <PlusOutlined style ={{float : "inline-start", transform: "translateY(100%)"}}onClick={() => showModal()} />
+          <PlusOutlined style={{ float: "inline-start", transform: "translateY(100%)" }} onClick={() => showModal()} />
         </div>
       ),
-      icon: <TeamOutlined/>,
+      icon: <TeamOutlined />,
       children: [
         getItem("Team 1", "5"),
         getItem("Team 2", "6"),
       ]
     },
-    getItem("Meet", "7", <WechatOutlined />,"/call"),
-    getItem("Resources", "8", <BookOutlined />,"/resources"),
+    getItem("Meet", "7", <WechatOutlined />, "/call"),
+    getItem("Resources", "8", <BookOutlined />, "/resources"),
   ];
 
   return (
@@ -149,12 +203,12 @@ const Layouts = ({ children }) => {
       >
         <div className="demo-logo-vertical" />
         <Menu
-  theme="dark"
-  defaultSelectedKeys={["1"]}
-  mode="inline"
-  items={menuItems}
-  onClick={handleMenuClick}
-/>
+          theme="dark"
+          defaultSelectedKeys={["1"]}
+          mode="inline"
+          items={menuItems}
+          onClick={handleMenuClick}
+        />
       </Sider>
       <Layout>
         <Header
@@ -177,7 +231,7 @@ const Layouts = ({ children }) => {
           Developers
         </Footer>
         <Modal
-          title="Create Team"
+          title="Create Group"
           open={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
@@ -187,20 +241,57 @@ const Layouts = ({ children }) => {
           width={600}
           style={{ fontSize: "20px" }}
         >
-          <Input.Search
-            placeholder="Search user"
-            enterButton
-            style={{ padding: "12px",color:"gray", borderColor:"black" }}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onSearch={searchUsers} 
-          />
-          {/* Display search results */}
-          {searchResults.map((user) => (
-            <div key={user._id}>
-              {user.username}{' '}
-              <Button onClick={() => addMemberToTeam(teamId, user._id)}>Add</Button>
-            </div>
-          ))}
+          <Form form={form} layout="vertical">
+            {/* Team Name Input */}
+            <Form.Item
+              name="groupName"
+              label="Group Name"
+              rules={[{ required: true, message: 'Please enter a group name' }]}
+            >
+              <Input placeholder="Enter team name" />
+            </Form.Item>
+
+            {/* Search Users Input */}
+            <Form.Item label="Search Users">
+              <Input.Search
+                placeholder="Search user"
+                enterButton
+                style={{ padding: '12px', color: 'gray', borderColor: 'black' }}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onSearch={searchUsers}
+              />
+            </Form.Item>
+
+            {/* Display search results */}
+            <List
+              dataSource={searchResults}
+              renderItem={(user) => (
+                <List.Item
+                  key={user._id}
+                  style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}
+                >
+                  <div style={{ fontWeight: "normal" }}>{user.username} - {user.regno}</div>
+                  <Button onClick={() => handleAddUser(user)}>Add</Button>
+                </List.Item>
+              )}
+            />
+
+            {/* Add a gap between search results and added users */}
+            <div style={{ marginTop: "16px" }}></div>
+
+            {/* Display added users */}
+            <Form.Item label={<b>Added Users</b>}>
+              {addedUsers.map((user) => (
+                <div key={user._id} style={{ marginBottom: "8px" }}>
+                  {user.username} - {user.regno}
+                  <Button type="link" onClick={() => handleRemoveUser(user._id)}>Remove</Button>
+                </div>
+              ))}
+            </Form.Item>
+
+          </Form>
+
+
         </Modal>
       </Layout>
       <style>

@@ -13,24 +13,23 @@ const protect = asyncHandler(async (req, res, next) => {
     try {
       token = req.headers.authorization.split(" ")[1];
 
-      //decodes token id
+      // Decodes token id
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
       req.user = await User.findById(decoded.id);
-      if(req.user.role!== 'admin'){
-        return res.status(401).json({success: false,message: "Not admin" });
+      if (req.user.role !== "admin") {
+        console.log("not admin login");
+        return res.status(401).json({ success: false, message: "Not admin" });
       }
 
       next();
     } catch (error) {
-      res.status(401);
-      throw new Error("Not authorized, token failed");
+      return res.status(401).json({ success: false, message: "Authorization failed" });
     }
   }
 
   if (!token) {
-    res.status(401);
-    throw new Error("Not authorized, no token");
+    return res.status(401).json({ success: false, message: "Not authorized, no token" });
   }
 });
 
