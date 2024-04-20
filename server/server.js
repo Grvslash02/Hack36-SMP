@@ -3,7 +3,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 const connectDb = require("./config/connectDb");
-const userRouter = require("./routes/userRoutes");
+const userRouter = require("./Routes/userRoutes");
+const router = require("./Routes/teamRoutes")
 const http = require("http");
 
 // Configure dotenv
@@ -39,3 +40,5 @@ connectDb()
 // app.route('/').get(home);
 // app.use('/api/v1/mentors',mentorRouter);
 app.use('/api/v1/users',userRouter);
+app.use('/api/v1/teams',router);
+

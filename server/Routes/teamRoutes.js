@@ -3,7 +3,7 @@ const router = express.Router();
 const teamController = require('../Controllers/teamController');
 
 router.post('/create', teamController.createTeam);
-router.post('/search', teamController.searchUser);
-router.post('/add-member', teamController.addMember);
+router.get('/search', teamController.searchUser);
+router.put('/add-member', teamController.addMember);
 
 module.exports = router;

@@ -41,10 +41,16 @@ const Layouts = ({ children }) => {
   };
 
   const handleOk = () => {
-    setIsModalVisible(false);
-    const newTeamName = `Team ${teams.length + 1}`;
-    setTeams([...teams, newTeamName]);
+    const handleCreateTeam = async () => {
+      setIsModalVisible(false);
+      const newTeamName = `Team ${teams.length + 1}`;
+      setTeams([...teams, newTeamName]);
+      await createTeam();
+    };
+  
+    handleCreateTeam();
   };
+  
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -68,7 +74,7 @@ const Layouts = ({ children }) => {
   // Function to handle searching for users
   const searchUsers = async () => {
     try {
-      const response = await axios.post('/api/v1/teams/search', {
+      const response = await axios.get('/api/v1/teams/search', {
         searchTeam: searchTerm,
       });
       setSearchResults(response.data.users);
@@ -81,7 +87,7 @@ const Layouts = ({ children }) => {
   // Function to handle adding a user to the team
   const addMemberToTeam = async (teamId, memberId) => {
     try {
-      const response = await axios.post('/api/v1/teams/add-member', {
+      const response = await axios.put('/api/v1/teams/add-member', {
         teamId,
         memberId,
       });
@@ -162,7 +168,7 @@ const Layouts = ({ children }) => {
             enterButton
             style={{ padding: "12px",color:"gray", borderColor:"black" }}
             onChange={(e) => setSearchTerm(e.target.value)}
-            onSearch={searchUsers} // Call searchUsers function on search button click
+            onSearch={searchUsers} 
           />
           {/* Display search results */}
           {searchResults.map((user) => (
