@@ -1,5 +1,5 @@
 
-# SVMP
+# SVMP (STUDENT VIRTUAL MENTORSHIP PORTAL)
 
 
 [![MIT License](https://i.postimg.cc/FFwvfkGk/built-at-hack36.png)](https://choosealicense.com/licenses/mit/)
