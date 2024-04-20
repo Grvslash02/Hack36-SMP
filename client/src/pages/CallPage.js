@@ -12,16 +12,18 @@ const CallPage = () => {
 
         // Parse the JSON string to an object
         const userInfo = JSON.parse(userInfoString);
+        console.log(userInfo);
+        console.log(userInfo.username);
 
         // Check if userInfo and username exist
+
+         
         if (userInfo && userInfo.username) {
     // Set input to the value of the key 'username'
-        setInput(userInfo.username);
+    navigate(`/room/${userInfo.username}`);
     } else {
         console.error("The key 'username' does not exist in the userInfo object.");
 }
-
-        navigate(`/room/${Input}`)
     }
 
     return (
