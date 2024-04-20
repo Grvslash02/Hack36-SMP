@@ -1,10 +1,12 @@
 import React from "react";
 import { useRef } from "react";
 import { Breadcrumb, Layout, Menu, theme, Card } from "antd";
-import Layouts from "../components/Layouts";
-import mentorImage from "./../resources/mentor-01.png";
+import Layouts from "./components/Layouts";
+import menteeImage from "./../resources/mentee-01.png";
+
 export default function Features() {
   const cardsRef = useRef(null);
+
   const cards = [
     {
       title: "Resource Library",
@@ -39,7 +41,7 @@ export default function Features() {
         }}
       >
         <img
-          src={mentorImage}
+          src={menteeImage}
           alt="Image"
           style={{ maxWidth: "100%", height: "auto" }}
         />
