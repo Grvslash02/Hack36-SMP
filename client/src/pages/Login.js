@@ -108,7 +108,14 @@ export default function SignUp() {
                 localStorage.setItem("usertoken", response.data.token);
                 // console.log(localStorage.getItem(userInfo));
                 setTimeout(() => {
-                    navigate('/features');
+                    const INFO = JSON.parse(localStorage.getItem("userInfo"));
+                    if(INFO && INFO.role){
+                        if(INFO.role === "user"){
+                            navigate('/features');
+                        }else{
+                            navigate('/mentor');
+                        }
+                    }
                 }, 2000);
                 
             }else {

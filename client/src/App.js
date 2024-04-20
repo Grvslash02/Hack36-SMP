@@ -6,7 +6,9 @@ import Features from "./pages/Features";
 import ResourceLibrary from "./pages/resourceLibrary";
 import YourComponent from "./pages/homepage";
 import VideoPage from "./pages/VideoPage";
-import CallPage from "./pages/CallPage"
+import CallPage from "./pages/CallPage";
+import Mentor from "./pages/mentor";
+
 
 
 /** root routes */
@@ -24,6 +26,10 @@ const router = createBrowserRouter([
     element: (
         <Features />
     )
+  },
+  {
+    path: '/mentor',
+    element: <Mentor/>
   },
   {
     path: '/login',
