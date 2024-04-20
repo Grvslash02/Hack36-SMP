@@ -9,13 +9,14 @@ import { IoDiamondSharp } from "react-icons/io5";
 import { GitlabOutlined } from "@ant-design/icons";
 import { DownOutlined } from "@ant-design/icons";
 import { Avatar, Card } from "antd";
+import{useNavigate} from "react-router-dom";
 const { Meta } = Card;
 import { Carousel } from "antd";
 import { Breadcrumb, Layout, Menu, theme, Dropdown } from "antd";
 const { Header, Content, Footer } = Layout;
 const items = [
-  { key: "1", label: "Login" },
-  { key: "2", label: "Signup" },
+  { key: "1", label: "Login", link: '/login'},
+  { key: "2", label: "Signup", link: '/signup' },
   { key: "3", label: "About Us" },
 ];
 const { Panel } = Collapse;
@@ -26,7 +27,7 @@ const YourComponent = () => {
   const handlePanelChange = (key) => {
     setActivePanel(activePanel === key ? null : key);
   };
-
+  const navigate = useNavigate();
   const cardContainerStyle = {
     display: "flex", // Use flexbox
     justifyContent: "space-around", // Distribute items with equal space around them
@@ -95,6 +96,12 @@ const YourComponent = () => {
       )}
     </Menu>
   );
+  const handleMenuItemClick = (key) => {
+    const selectedItem = items.find(item => item.key === key);
+    if (selectedItem) {
+      navigate(selectedItem.link);
+    }
+  };
 
   return (
     <Layout style={{ minHeight: "100vh", background: "#132f45" }}>
@@ -113,6 +120,7 @@ const YourComponent = () => {
       >
         <div className="demo-logo" />
         <Menu
+          onClick={({ key }) => handleMenuItemClick(key)}
           theme="dark"
           mode="horizontal"
           defaultSelectedKeys={["2"]}
@@ -133,7 +141,8 @@ const YourComponent = () => {
             justifyContent: "flex-end", // Ensures menu items are on the right
             border: "none", // Removes any borders
           }}
-        />
+        >
+        </Menu>
       </Header>
 
       <div
@@ -441,97 +450,7 @@ const YourComponent = () => {
           </Collapse>
         </div>
 
-        // <div style={cardContainerStyle}>
-        //   <Card
-        //     style={{ width: 300 }}
-        //     cover={
-        //       <div style={circleCardStyle}>
-        //         <Avatar
-        //           style={circleImageStyle}
-        //           src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-        //         />
-        //       </div>
-          //   }
-          //   actions={[
-          //     <SettingOutlined key="setting" />,
-          //     <EditOutlined key="edit" />,
-          //     <EllipsisOutlined key="ellipsis" />,
-          //   ]}
-          // >
-          //   <Meta
-          //     style={circleMetaStyle}
-          //     title="Card title"
-          //     description="This is the description"
-          //   />
-          // </Card>
-          // <Card
-          //   style={{ width: 300 }}
-          //   cover={
-          //     <div style={circleCardStyle}>
-          //       <Avatar
-          //         style={circleImageStyle}
-          //         src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-          //       />
-          //     </div>
-          //   }
-          //   actions={[
-          //     <SettingOutlined key="setting" />,
-          //     <EditOutlined key="edit" />,
-          //     <EllipsisOutlined key="ellipsis" />,
-          //   ]}
-          // >
-          //   <Meta
-          //     style={circleMetaStyle}
-          //     title="Card title"
-          //     description="This is the description"
-          //   />
-          // </Card>
-          // {/* Add two more Card components here */}
-          // <Card
-          //   style={{ width: 300 }}
-          //   cover={
-          //     <div style={circleCardStyle}>
-          //       <Avatar
-          //         style={circleImageStyle}
-          //         src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-          //       />
-          //     </div>
-          //   }
-          //   actions={[
-          //     <SettingOutlined key="setting" />,
-          //     <EditOutlined key="edit" />,
-          //     <EllipsisOutlined key="ellipsis" />,
-          //   ]}
-          // >
-          //   <Meta
-          //     style={circleMetaStyle}
-          //     title="Card title"
-          //     description="This is the description"
-          //   />
-          // </Card>
-          // <Card
-          //   style={{ width: 300 }}
-          //   cover={
-          //     <div style={circleCardStyle}>
-          //       <Avatar
-          //         style={circleImageStyle}
-          //         src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-          //       />
-          //     </div>
-          //   }
-          //   actions={[
-          //     <SettingOutlined key="setting" />,
-          //     <EditOutlined key="edit" />,
-          //     <EllipsisOutlined key="ellipsis" />,
-          //   ]}
-          // >
-          //   <Meta
-          //     style={circleMetaStyle}
-          //     title="Card title"
-        //       description="This is the description"
-        //     />
-        //   </Card>
-        // </div>
+       
       </Content>
       <Footer
         style={{
