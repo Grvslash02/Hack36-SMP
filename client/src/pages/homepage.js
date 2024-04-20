@@ -5,6 +5,7 @@ import {
   EditOutlined,
   EllipsisOutlined,
 } from "@ant-design/icons";
+import { Row, Col, Image } from "antd";
 import { IoDiamondSharp } from "react-icons/io5";
 import { GitlabOutlined } from "@ant-design/icons";
 import { DownOutlined } from "@ant-design/icons";
@@ -13,6 +14,13 @@ import{useNavigate} from "react-router-dom";
 const { Meta } = Card;
 import { Carousel } from "antd";
 import { Breadcrumb, Layout, Menu, theme, Dropdown } from "antd";
+import one from "./../resources/one.png"
+import black from "./../resources/black.jpg"
+import blue from "./../resources/blue.jpg"
+import second from "./../resources/2nd.png"
+import haha from "./../resources/haha-01.jpg"
+import hands from "./../resources/hands.png"
+import vc from "./../resources/vc.png"
 const { Header, Content, Footer } = Layout;
 const items = [
   { key: "1", label: "Login", link: '/login'},
@@ -47,7 +55,7 @@ const YourComponent = () => {
     textAlign: "center", // Center align content
   };
   const ContentStyle = {
-    height: "420px",
+    height: "450px",
     color: "#fff",
     lineHeight: "420px",
     textAlign: "center",
@@ -64,11 +72,12 @@ const YourComponent = () => {
     marginTop: "0px",
     // Adjust margin as needed
   };
+  
   const images = [
-    "https://img.freepik.com/free-vector/organic-flat-people-business-training_23-2148909572.jpg?t=st=1713608989~exp=1713612589~hmac=4883e413b5b65c1d4b25e61f4e4cebb9eda7f0b69caee39223e202222ef4f670&w=1800",
-    "https://img.freepik.com/free-vector/abstract-illustration-choice-worker-concept_52683-44367.jpg?t=st=1713589342~exp=1713592942~hmac=838284dffe3045a21cbfc2127d5ffbd0e766266294e0b5bb5c27b71b03b23e0e&w=1800",
-    "https://i.pinimg.com/564x/af/d4/fd/afd4fd95dee9b0225cfdc7fdc925ed70.jpg",
-    "https://i.pinimg.com/564x/a7/05/a4/a705a44c67432f31fdda5488a8ce47f5.jpg",
+    haha,
+    hands,
+    one,
+    vc
   ];
 
   const dropdownMenu = (label) => (
@@ -111,7 +120,7 @@ const YourComponent = () => {
           top: 0,
           zIndex: 1,
           padding: "0px",
-          background: "#0c1e2e",
+          background: "#132f45",
           width: "100%",
           display: "flex",
           alignItems: "center",
@@ -127,9 +136,10 @@ const YourComponent = () => {
           items={items.map((item) => ({
             ...item,
             style: {
-              borderRadius: "2px", // Round corners
-              margin: "0 10px", // Space between items
-              background: "#4a90e2", // Custom background color
+              // borderRadius: "2px",
+              // height:50, // Round corners
+              margin: "0px", // Space between items
+              background: "#132f45", // Custom background color
               color: "#ffffff", // Text color
               padding: "10px 20px", // Padding inside each item
             },
@@ -138,6 +148,7 @@ const YourComponent = () => {
             flex: 1,
             minWidth: 0,
             display: "flex",
+            backgroundColor:"4a90e2",
             justifyContent: "flex-end", // Ensures menu items are on the right
             border: "none", // Removes any borders
           }}
