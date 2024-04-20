@@ -41,10 +41,14 @@ const Layouts = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
-
+  const info = JSON.parse(localStorage.getItem("userInfo"));
   const showModal = () => {
     setIsModalVisible(true);
   };
+  let userName = "User";
+  if(info && info.username){
+    userName = info.username;
+  }
 
   const handleOk = () => {
     const handleCreateTeam = async () => {
@@ -112,21 +116,20 @@ const Layouts = ({ children }) => {
       // Handle error and update UI accordingly
     }
   };
-
   const menuItems = [
-    getItem("User", "sub1", <UserOutlined />, [
+    {label:userName, key: "sub1", icon: <UserOutlined />,children:[
       getItem("Dashboard", "1",),
       getItem("Update profile", "2"),
       getItem("Reset Password", "3",),
       getItem("Logout", "4"),
-    ]),
+    ]},
     {
       key: "sub2",
       label: (
         <div>
         {/* <TeamOutlined style={{ marginRight: 8 }} /> */}
-          <span >Groups</span>
-          <PlusOutlined style ={{float : "inline-start", transform: "translateY(100%)"}}onClick={() => showModal()} />
+          <span>Groups</span>
+          {(info && info.role === "admin") && <PlusOutlined style ={{paddingLeft: 30, transform: "translateY(0%)"}}onClick={() => showModal()} />}
         </div>
       ),
       icon: <TeamOutlined/>,
@@ -149,11 +152,11 @@ const Layouts = ({ children }) => {
       >
         <div className="demo-logo-vertical" />
         <Menu
-  theme="dark"
-  defaultSelectedKeys={["1"]}
-  mode="inline"
-  items={menuItems}
-  onClick={handleMenuClick}
+          theme="dark"
+          defaultSelectedKeys={["1"]}
+          mode="inline"
+          items={menuItems}
+          onClick={handleMenuClick}
 />
       </Sider>
       <Layout>

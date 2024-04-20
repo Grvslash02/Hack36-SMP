@@ -8,7 +8,7 @@ const CallPage = () => {
 
     const handleSubmit = ()=>{
         // Retrieve the JSON string from localStorage
-        const userInfoString = localStorage.getItem('userInfo');
+        const userInfoString = localStorage.getItem("userInfo");
 
         // Parse the JSON string to an object
         const userInfo = JSON.parse(userInfoString);
