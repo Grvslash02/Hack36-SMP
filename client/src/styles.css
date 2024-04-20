@@ -10,7 +10,10 @@ body {
   font-family: "Open Sans", sans-serif;
   color: #333333;
 }
-
+.active-panel {
+  background-color: #0c1e2e; /* Set background color when panel is active */
+  color: #ffffff; /* Set text color when panel is active */
+}
 .box-form {
   margin: 0 auto;
   width: 80%;
