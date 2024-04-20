@@ -1,4 +1,6 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
+
 import {
   BookOutlined,
   WechatOutlined,
@@ -19,13 +21,16 @@ import axios from 'axios'; // Import Axios to make HTTP requests
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Meta } = Card;
+ // Initialize the useNavigate hook
 
-function getItem(label, key, icon, children) {
+
+function getItem(label, key, icon, link, children) {
   return {
     key,
     icon,
     children,
     label,
+    link,
   };
 }
 
@@ -35,6 +40,7 @@ const Layouts = ({ children }) => {
   const [teams, setTeams] = useState(["Team 1", "Team 2"]);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const navigate = useNavigate();
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -50,6 +56,14 @@ const Layouts = ({ children }) => {
   
     handleCreateTeam();
   };
+
+  const handleMenuClick = ({ key }) => {
+    const selectedItem = menuItems.flat().find((item) => item.key === key);
+    if (selectedItem && selectedItem.link) {
+      navigate(selectedItem.link);
+    }
+  };
+  
   
 
   const handleCancel = () => {
@@ -101,9 +115,9 @@ const Layouts = ({ children }) => {
 
   const menuItems = [
     getItem("User", "sub1", <UserOutlined />, [
-      getItem("Dashboard", "1"),
+      getItem("Dashboard", "1",),
       getItem("Update profile", "2"),
-      getItem("Reset Password", "3"),
+      getItem("Reset Password", "3",),
       getItem("Logout", "4"),
     ]),
     {
@@ -121,8 +135,8 @@ const Layouts = ({ children }) => {
         getItem("Team 2", "6"),
       ]
     },
-    getItem("Meet", "7", <WechatOutlined />),
-    getItem("Resources", "8", <BookOutlined />),
+    getItem("Meet", "7", <WechatOutlined />,"/call"),
+    getItem("Resources", "8", <BookOutlined />,"/resources"),
   ];
 
   return (
@@ -135,12 +149,12 @@ const Layouts = ({ children }) => {
       >
         <div className="demo-logo-vertical" />
         <Menu
-          theme="dark"
-          defaultSelectedKeys={["1"]}
-          mode="inline"
-          items={menuItems}
-          style={{ fontSize: "20px" }}
-        />
+  theme="dark"
+  defaultSelectedKeys={["1"]}
+  mode="inline"
+  items={menuItems}
+  onClick={handleMenuClick}
+/>
       </Sider>
       <Layout>
         <Header

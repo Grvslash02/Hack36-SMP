@@ -12,8 +12,8 @@ import {
   FaIndustry,
 } from "react-icons/fa";
 
-// Import the local image
-import resourceLibraryImage from "../resources/imagee.png"; // Replace 'path-to-your-image.png' with the actual path to the image
+
+import resourceLibraryImage from "../resources/imagee.png";
 
 const ResourceLibrary = () => {
   const departments = [
