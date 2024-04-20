@@ -441,97 +441,97 @@ const YourComponent = () => {
           </Collapse>
         </div>
 
-        <div style={cardContainerStyle}>
-          <Card
-            style={{ width: 300 }}
-            cover={
-              <div style={circleCardStyle}>
-                <Avatar
-                  style={circleImageStyle}
-                  src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                />
-              </div>
-            }
-            actions={[
-              <SettingOutlined key="setting" />,
-              <EditOutlined key="edit" />,
-              <EllipsisOutlined key="ellipsis" />,
-            ]}
-          >
-            <Meta
-              style={circleMetaStyle}
-              title="Card title"
-              description="This is the description"
-            />
-          </Card>
-          <Card
-            style={{ width: 300 }}
-            cover={
-              <div style={circleCardStyle}>
-                <Avatar
-                  style={circleImageStyle}
-                  src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                />
-              </div>
-            }
-            actions={[
-              <SettingOutlined key="setting" />,
-              <EditOutlined key="edit" />,
-              <EllipsisOutlined key="ellipsis" />,
-            ]}
-          >
-            <Meta
-              style={circleMetaStyle}
-              title="Card title"
-              description="This is the description"
-            />
-          </Card>
-          {/* Add two more Card components here */}
-          <Card
-            style={{ width: 300 }}
-            cover={
-              <div style={circleCardStyle}>
-                <Avatar
-                  style={circleImageStyle}
-                  src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                />
-              </div>
-            }
-            actions={[
-              <SettingOutlined key="setting" />,
-              <EditOutlined key="edit" />,
-              <EllipsisOutlined key="ellipsis" />,
-            ]}
-          >
-            <Meta
-              style={circleMetaStyle}
-              title="Card title"
-              description="This is the description"
-            />
-          </Card>
-          <Card
-            style={{ width: 300 }}
-            cover={
-              <div style={circleCardStyle}>
-                <Avatar
-                  style={circleImageStyle}
-                  src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                />
-              </div>
-            }
-            actions={[
-              <SettingOutlined key="setting" />,
-              <EditOutlined key="edit" />,
-              <EllipsisOutlined key="ellipsis" />,
-            ]}
-          >
-            <Meta
-              style={circleMetaStyle}
-              title="Card title"
-              description="This is the description"
-            />
-          </Card>
-        </div>
+        // <div style={cardContainerStyle}>
+        //   <Card
+        //     style={{ width: 300 }}
+        //     cover={
+        //       <div style={circleCardStyle}>
+        //         <Avatar
+        //           style={circleImageStyle}
+        //           src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+        //         />
+        //       </div>
+          //   }
+          //   actions={[
+          //     <SettingOutlined key="setting" />,
+          //     <EditOutlined key="edit" />,
+          //     <EllipsisOutlined key="ellipsis" />,
+          //   ]}
+          // >
+          //   <Meta
+          //     style={circleMetaStyle}
+          //     title="Card title"
+          //     description="This is the description"
+          //   />
+          // </Card>
+          // <Card
+          //   style={{ width: 300 }}
+          //   cover={
+          //     <div style={circleCardStyle}>
+          //       <Avatar
+          //         style={circleImageStyle}
+          //         src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+          //       />
+          //     </div>
+          //   }
+          //   actions={[
+          //     <SettingOutlined key="setting" />,
+          //     <EditOutlined key="edit" />,
+          //     <EllipsisOutlined key="ellipsis" />,
+          //   ]}
+          // >
+          //   <Meta
+          //     style={circleMetaStyle}
+          //     title="Card title"
+          //     description="This is the description"
+          //   />
+          // </Card>
+          // {/* Add two more Card components here */}
+          // <Card
+          //   style={{ width: 300 }}
+          //   cover={
+          //     <div style={circleCardStyle}>
+          //       <Avatar
+          //         style={circleImageStyle}
+          //         src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+          //       />
+          //     </div>
+          //   }
+          //   actions={[
+          //     <SettingOutlined key="setting" />,
+          //     <EditOutlined key="edit" />,
+          //     <EllipsisOutlined key="ellipsis" />,
+          //   ]}
+          // >
+          //   <Meta
+          //     style={circleMetaStyle}
+          //     title="Card title"
+          //     description="This is the description"
+          //   />
+          // </Card>
+          // <Card
+          //   style={{ width: 300 }}
+          //   cover={
+          //     <div style={circleCardStyle}>
+          //       <Avatar
+          //         style={circleImageStyle}
+          //         src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+          //       />
+          //     </div>
+          //   }
+          //   actions={[
+          //     <SettingOutlined key="setting" />,
+          //     <EditOutlined key="edit" />,
+          //     <EllipsisOutlined key="ellipsis" />,
+          //   ]}
+          // >
+          //   <Meta
+          //     style={circleMetaStyle}
+          //     title="Card title"
+        //       description="This is the description"
+        //     />
+        //   </Card>
+        // </div>
       </Content>
       <Footer
         style={{
