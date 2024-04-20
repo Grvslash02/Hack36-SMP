@@ -3,6 +3,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Features from "./pages/Features";
+import ResourceLibrary from "./pages/resourceLibrary"
+
 
 /** root routes */
 const router = createBrowserRouter([
@@ -24,6 +26,10 @@ const router = createBrowserRouter([
     path: '/login',
     element: <Login />
   },
+  {
+    path: '/resources',
+    element: <ResourceLibrary/>
+  }
 
 ]);
 export default function App() {
