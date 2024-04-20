@@ -4,7 +4,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Features from "./pages/Features";
 import ResourceLibrary from "./pages/resourceLibrary";
-import YourComponent from "./pages/Homepage";
+import YourComponent from "./pages/homepage";
 import VideoPage from "./pages/VideoPage";
 import CallPage from "./pages/CallPage"
 

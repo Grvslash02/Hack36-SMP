@@ -12,7 +12,7 @@ const userSchema= new mongoose.Schema({
         trim: true
     },
     regno:{
-      type: Number,
+      type: String,
       unique:[true,"Reg. no must be unique"],
       minlength:8
     },
@@ -117,5 +117,5 @@ userSchema.methods.createPasswordResetToken= async function(){
 }
 
 
-const User= new mongoose.model('User',userSchema);
+const User = mongoose.models.User || mongoose.model('User',userSchema);
 module.exports= User;

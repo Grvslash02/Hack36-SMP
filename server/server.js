@@ -4,7 +4,8 @@ const morgan = require("morgan");
 const dotenv = require("dotenv");
 const connectDb = require("./config/connectDb");
 const userRouter = require("./routes/userRoutes");
-const teamRouter = require("./Routes/teamRoutes")
+const chatRoutes = require("./Routes/ChatRoutes");
+const messageRoutes = require("./Routes/messageRoutes");
 const http = require("http");
 
 // Configure dotenv
@@ -40,5 +41,6 @@ connectDb()
 // app.route('/').get(home);
 // app.use('/api/v1/mentors',mentorRouter);
 app.use('/api/v1/users',userRouter);
-app.use('/api/v1/teams',teamRouter);
+app.use('/api/v1/chat',chatRoutes);
+app.use('/api/v1/message',messageRoutes)
 
