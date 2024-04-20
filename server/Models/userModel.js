@@ -73,7 +73,7 @@ userSchema.pre('save', async function(next) {
       this.passwordConfirm = undefined;
       next();
     } catch (err) {
-      return next(err);
+        res.status(400).json({ success: false, message: 'Password Not Match' });
     }
 });
 

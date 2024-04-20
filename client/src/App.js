@@ -1,12 +1,35 @@
 import "./styles.css";
-import Login from "./components/loginPage";
-import Signup from "./components/signup"
-import Cards from "./components/cards"
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import Features from "./pages/Features";
 
+/** root routes */
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <div />
+  },
+  {
+    path: '/signup',
+    element: <SignUp />
+  },
+  {
+    path: '/features',
+    element: (
+        <Features />
+    )
+  },
+  {
+    path: '/login',
+    element: <Login />
+  },
+
+]);
 export default function App() {
   return (
-    <div className="App">
-      <Cards/>
-    </div>
+    <main>
+          <RouterProvider router={router} />
+        </main>
   );
 }

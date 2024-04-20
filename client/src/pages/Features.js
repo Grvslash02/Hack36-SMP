@@ -1,9 +1,9 @@
 import React from "react";
 import { useRef } from "react";
 import { Breadcrumb, Layout, Menu, theme, Card } from "antd";
-import Layouts from "./Layouts";
+import Layouts from "../components/Layouts";
 
-export default function Cards() {
+export default function Features() {
   const cardsRef = useRef(null);
   const cards = [
     {

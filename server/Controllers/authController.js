@@ -1,9 +1,11 @@
-const User= require('./../Models/userModel');
+const User= require('./../models/userModel');
 const crypto=require('crypto');
 const { promisify }=require('util');
 const jwt= require('jsonwebtoken');
 // const AppError= require('./../utils/appError');
-// const sendEmail= require('./../utils/email');
+const sendEmail= require('./../utils/sendEmail');
+const generateOTP = require('./../utils/generateOTP');
+// const { use } = require('../app');
 // const { use } = require('../app');
 
 const signToken = id=>{
@@ -11,7 +13,7 @@ const signToken = id=>{
 }
 
 exports.verifySignup=async(req,res,next)=>{
-    const { username, email, password,passwordConfirm, role } = req.body;
+    const { username, email,regno,password,passwordConfirm, role } = req.body;
     if (!username || !email || !password) {
         return res.status(400).json({ success: false, message: 'Please enter all fields' });
     }
@@ -23,15 +25,16 @@ exports.verifySignup=async(req,res,next)=>{
     if (emailExists) {
         return res.status(400).json({ success: false, message: 'Email already exists' });
     }
-    req.app.locals = {username, email, password,passwordConfirm, role, isVerified: true};
+    req.app.locals = {username, regno, email, password,passwordConfirm, role, isVerified: true};
     next();
 }
-exports.signup= async (req,res,next) =>{
-    const { username, password,passwordConfirm, email, role} = req.app.locals;
+exports.signup= async (req,res) =>{
+    const { username, regno, password,passwordConfirm, email, role} = req.app.locals;
 
     const newUser= await User.create({
         username: username,
         email:email,
+        regno: regno,
         password:password,
         passwordConfirm:passwordConfirm,
         role: role
@@ -40,11 +43,12 @@ exports.signup= async (req,res,next) =>{
         const token= signToken(newUser._id);
     
         res.status(200).json({
-            status:'success',
+            success: true,
             token,      
-            data: {
-                user: newUser,
-            }
+            
+            user: newUser,
+            message: "Registration Successful!"
+            
         })
     }
     else{
@@ -52,7 +56,7 @@ exports.signup= async (req,res,next) =>{
     }
 }
 exports.verifyLogin= async(req,res,next)=>{
-    const {email, password} =req.body;
+    const {email, password,role} =req.body;
 
     //1.Check if email exists and passowrd exist
     if(!email || !password){
@@ -66,15 +70,17 @@ exports.verifyLogin= async(req,res,next)=>{
     if(!user|| !correct){
         return res.status(401).json({ success: false, message: 'Invalid username or password' });
     }
-
-    req.app.locals = {email, isVerified: true};
-        next();
+    if(user.role !== role){
+        return res.status(401).json({success: false, message: 'Access Denied, Invalid Role'})
+    }
+    req.app.locals = {user,email, isVerified: true};
+    next();
 
 }
 
 
-exports.login= async (req,res,next) =>{
-    const {email, password} =req.body;
+exports.login= async (req,res) =>{
+    
 
     // //1.Check if email exists and passowrd exist
     // if(!email || !password){
@@ -97,12 +103,14 @@ exports.login= async (req,res,next) =>{
     // })
     if(req.app.locals.isVerified && req.app.locals.verifiedOTP){
         const user = req.app.locals.user;
+        console.log(user);
         if(user){
             req.app.locals = {};
             const token=signToken(user._id);
-            res.status(200).json({
+            return res.status(200).json({
                      success: true,
-                     token
+                     token,
+                     user:user
             })
         }
     }

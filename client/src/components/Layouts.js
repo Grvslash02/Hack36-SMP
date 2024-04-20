@@ -106,11 +106,21 @@ const Layouts = ({ children }) => {
       getItem("Reset Password", "3"),
       getItem("Logout", "4"),
     ]),
-    getItem("Groups", "sub2", <PlusOutlined onClick={showModal} />, [
-      ...teams.map((team, index) =>
-        getItem(team, `5${index}`, <TeamOutlined />)
+    {
+      key: "sub2",
+      label: (
+        <div>
+        {/* <TeamOutlined style={{ marginRight: 8 }} /> */}
+          <span >Groups</span>
+          <PlusOutlined style ={{float : "inline-start", transform: "translateY(100%)"}}onClick={() => showModal()} />
+        </div>
       ),
-    ]),
+      icon: <TeamOutlined/>,
+      children: [
+        getItem("Team 1", "5"),
+        getItem("Team 2", "6"),
+      ]
+    },
     getItem("Meet", "7", <WechatOutlined />),
     getItem("Resources", "8", <BookOutlined />),
   ];
@@ -154,7 +164,7 @@ const Layouts = ({ children }) => {
         </Footer>
         <Modal
           title="Create Team"
-          visible={isModalVisible}
+          open={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
           cancelButtonProps={{
