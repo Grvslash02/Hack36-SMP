@@ -94,7 +94,7 @@ const YourComponent = () => {
       )}
       {label === "Library resource" && (
         <>
-          <Menu.Item key="7">Option 7</Menu.Item>
+          <Menu.Item key="7">RESOURCE HUB</Menu.Item>
         </>
       )}
     </Menu>
