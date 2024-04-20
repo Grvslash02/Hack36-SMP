@@ -152,7 +152,7 @@ const Layouts = ({ children }) => {
             background: "#1679AB",
           }}
         >
-          <h1 style={{ margin: 0, color: "white" }}>SMP</h1>
+          <h1 style={{ margin: 0, color: "white" }}>SVMP</h1>
         </Header>
         <Content style={{ margin: "0 16px" }}>
           <Breadcrumb style={{ margin: "6px 0" }}></Breadcrumb>

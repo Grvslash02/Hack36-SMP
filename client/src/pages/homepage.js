@@ -457,7 +457,8 @@ const YourComponent = () => {
           textAlign: "center",
         }}
       >
-        Ant Design ©{new Date().getFullYear()} Created by Ant UED
+        CreatiO(n) Coders ©{new Date().getFullYear()} Created by the Best
+          Developers
       </Footer>
     </Layout>
   );
