@@ -25,7 +25,7 @@ const { Header, Content, Footer } = Layout;
 const items = [
   { key: "1", label: "Login", link: '/login'},
   { key: "2", label: "Signup", link: '/signup' },
-  { key: "3", label: "About Us" },
+  { key: "3", label: "About Us", link:'/aboutUs'},
 ];
 const { Panel } = Collapse;
 

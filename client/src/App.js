@@ -8,6 +8,7 @@ import YourComponent from "./pages/homepage";
 import VideoPage from "./pages/VideoPage";
 import CallPage from "./pages/CallPage";
 import Mentor from "./pages/mentor";
+import AboutUs from "./pages/aboutUs";
 
 
 
@@ -47,8 +48,8 @@ const router = createBrowserRouter([
     path:"/room/:id",
     element:<VideoPage/>
   },{
-    // path:"/aboutus",
-    // element:<Aboutus/>
+    path:"/aboutUs",
+    element:<AboutUs/>
   }
 
 ]);
