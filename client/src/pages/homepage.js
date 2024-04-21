@@ -84,17 +84,27 @@ const YourComponent = () => {
     <Menu>
       {label === "What we do" && (
         <>
-         <Menu.Item key="3">Option 3</Menu.Item>
+        <Menu.Item 
+  key="3" 
+  onClick={() => {
+    const panel = document.getElementById("active-panel-1");
+    if (panel) {
+      panel.scrollIntoView({ behavior: "smooth" });
+    }
+  }}
+>
+  QUESTIONS FOR US
+</Menu.Item>
         </>
       )}
       {label === "Who we are" && (
         <>
-          <Menu.Item key="4">Option 4</Menu.Item>
+          <Menu.Item key="4">ABOUT US</Menu.Item>
         </>
       )}
       {label === "Library resource" && (
         <>
-          <Menu.Item key="7">Option 7</Menu.Item>
+         <Menu.Item key="7" onClick={() => navigate('/login')}>RESOURCE HUB</Menu.Item>
         </>
       )}
     </Menu>
@@ -273,6 +283,7 @@ const YourComponent = () => {
             style={{ marginTop: "20px" }}
           >
             <Panel
+              id="active-panel-1"
               key="1"
               header="1. WHAT IS THE STUDENT VIRTUAL MENTORING PORTAL (SVMP)?"
               style={{

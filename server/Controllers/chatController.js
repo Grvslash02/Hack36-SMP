@@ -240,6 +240,7 @@ const removeFromGroup = asyncHandler(async (req, res) => {
         return res.status(400).json({ success: false, message: 'Registration number is required' });
       }
       const users = await User.find({ regno: { $regex: regNo, $options: 'i' }, role: 'user' });
+      console.log(users);
 
   
       if (!users || users.length === 0) {

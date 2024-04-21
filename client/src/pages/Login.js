@@ -175,7 +175,7 @@ export default function SignUp() {
             <div class="box-form">
                 <div class="left">
                     <div class="overlay">
-                        <h1>Hello World.</h1>
+                        <h1>SVMP LOGIN</h1>
 
                         <span onClick={GoogleAuth}>Login with Google</span>
                     </div>
