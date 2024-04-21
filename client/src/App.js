@@ -46,6 +46,9 @@ const router = createBrowserRouter([
   {
     path:"/room/:id",
     element:<VideoPage/>
+  },{
+    // path:"/aboutus",
+    // element:<Aboutus/>
   }
 
 ]);
