@@ -1,16 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layouts from "./../components/Layouts.js";
+import { message } from "antd";
+import axios from "axios"; // Import Axios for HTTP requests
 
+import io from "socket.io-client";
+const ENDPOINT = "http://localhost:5000";
+var socket, selectedChatCompare;
 const ChatApp = () => {
   const [messages, setMessages] = useState([]);
   const [currentMessage, setCurrentMessage] = useState("");
+  const [socketConnected, setSocketConnected] = useState(false);
+  const user = JSON.parse(localStorage.getItem("userInfo"));
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    socket.emit("setup", user);
+    socket.on("connected", () => setSocketConnected(true));
+  }, []);
 
-  const handleSendMessage = () => {
+  const handleSend = async () => {
     if (currentMessage.trim() !== "") {
       // Add the message with the sender's information
       setMessages([...messages, { text: currentMessage, sender: "user" }]);
-      setCurrentMessage("");
+      try {
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("usertoken")}`,
+          },
+        };
+        setCurrentMessage("");
+        const { data } = await axios.post(
+          "/api/v1/message/messages",
+          {
+            content: currentMessage,
+            chatId: "6623e65b6f6487e0fb9219fd",
+          },
+          config
+        );
+        socket.emit("new message", data);
+        setMessages([...messages, data]);
+      } catch (error) {
+        message.error(error.response.data.message);
+      }
     }
+    setCurrentMessage("");
   };
 
   // Dummy function to simulate receiving a message from another user
@@ -96,7 +129,7 @@ const ChatApp = () => {
               }}
             />
             <button
-              onClick={handleSendMessage}
+              onClick={handleSend}
               style={{
                 padding: "10px 20px",
                 backgroundColor: "#34B7F1", // Use a blue color similar to WhatsApp

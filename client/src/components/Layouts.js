@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -47,6 +47,7 @@ const Layouts = ({ children }) => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [addedUsers, setAddedUsers] = useState([]);
+  const [chatGroups, setChatGroups] = useState([]);
 
   const info = JSON.parse(localStorage.getItem("userInfo"));
   const showModal = () => {
@@ -56,6 +57,27 @@ const Layouts = ({ children }) => {
   if(info && info.username){
     userName = info.username;
   }
+
+  useEffect(() => {
+    fetchChats();
+  }, []);
+
+  const fetchChats = async () => {
+    try {
+      const token = localStorage.getItem("usertoken");
+      const response = await axios.get("/api/v1/chat", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data);
+      if (response.data) {
+        setChatGroups(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching chat groups:", error);
+    }
+  };
   // Handle form submission
 const handleOk = async () => {
   try {
@@ -155,20 +177,7 @@ const handleOk = async () => {
   };
 
 
-  // Function to handle adding a user to the team
-  const addMemberToTeam = async (teamId, memberId) => {
-    try {
-      const response = await axios.put('/api/v1/teams/add-member', {
-        teamId,
-        memberId,
-      });
-      console.log(response.data); // Log the response from the backend
-      // Update UI based on the response
-    } catch (error) {
-      console.error('Error adding member to team:', error);
-      // Handle error and update UI accordingly
-    }
-  };
+ 
   const menuItems = [
     {label:userName, key: "sub1", icon: <UserOutlined />,children:[
       getItem("Dashboard", "1",),
@@ -186,10 +195,7 @@ const handleOk = async () => {
         </div>
       ),
       icon: <TeamOutlined />,
-      children: [
-        getItem("Team 1", "5"),
-        getItem("Team 2", "6"),
-      ]
+      children: chatGroups.map(chat => ({ label: chat.chatName, key: chat._id })),
     },
     getItem("Meet", "7", <WechatOutlined />, "/call"),
     getItem("Resources", "8", <BookOutlined />, "/resources"),
