@@ -126,6 +126,11 @@ const handleOk = async () => {
     if (selectedItem && selectedItem.link) {
       navigate(selectedItem.link);
     }
+    if (key.startsWith("sub2")) {
+      // Extract the chatId from the key
+      const chatId = key.split("_")[1];
+      navigate(`/chats/${chatId}`); // Navigate to the selected chat
+    }
   };
 
 
