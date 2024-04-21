@@ -45,8 +45,8 @@ const CallPage = () => {
                         onChange={(e) => setLink(e.target.value)}
                         style={{ marginBottom: '10px' }}
                     />
-                    <Button type="primary" onClick={(INFO && INFO.username === "user")? handleSubmituser:handleSubmitadmin}>
-                        Submit
+                    <Button type="primary" onClick={(INFO && INFO.username === "user")? handleSubmitadmin:handleSubmituser}>
+                        Join
                     </Button>
                 </Card>
             </div>
