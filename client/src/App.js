@@ -8,7 +8,8 @@ import YourComponent from "./pages/homepage";
 import VideoPage from "./pages/VideoPage";
 import CallPage from "./pages/CallPage";
 import Mentor from "./pages/mentor";
-import ChatApp from "./pages/ChatApp";
+import ChatApp from "./pages/ChatApp";import AboutUs from "./pages/aboutUs";
+
 
 
 /** root routes */
@@ -51,8 +52,8 @@ const router = createBrowserRouter([
     path:"/room/:id",
     element:<VideoPage/>
   },{
-    // path:"/aboutus",
-    // element:<Aboutus/>
+    path:"/aboutUs",
+    element:<AboutUs/>
   }
 
 ]);
